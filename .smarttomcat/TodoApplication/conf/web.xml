@@ -4772,5 +4772,8 @@
 <!--        <welcome-file>index.jsp</welcome-file>-->
         <welcome-file>login/login.jsp</welcome-file>
     </welcome-file-list>
-
+    <error-page>
+        <exception-type>java.lang.ClassNotFoundException</exception-type>
+        <location>/Error.jsp</location>
+    </error-page>
 </web-app>

@@ -1,51 +1,58 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
- pageEncoding="ISO-8859-1"%>
-    <!DOCTYPE html>
-    <html>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html>
+<html>
 
-    <head>
-        <meta charset="ISO-8859-1">
-        <title>Insert title here</title>
+<head>
+    <meta charset="ISO-8859-1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>User Registration</title>
 
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    </head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
 
-    </head>
+<body>
+    <jsp:include page="../common/header.jsp" />
+    <div class="container mt-5">
+        <h2>User Register Form</h2>
+        <div class="col-md-6 offset-md-3">
+            <% if (request.getAttribute("NOTIFICATION") != null) { %>
+                <div class="alert alert-success text-center" role="alert">
+                    <p><%= request.getAttribute("NOTIFICATION") %></p>
+                </div>
+            <% } %>
 
-    <body>
-        <jsp:include page="../common/header.jsp"></jsp:include>
-        <div class="container">
-
-            <h2>User Register Form</h2>
-            <div class="col-md-6 col-md-offset-3">
-                <div class="alert alert-success center" role="alert">
-                    <p>${NOTIFICATION}</p>
+            <form action="<%=request.getContextPath()%>/register" method="post">
+                <div class="form-group">
+                    <label for="firstName">First Name:</label>
+                    <input type="text" class="form-control" id="firstName" name="firstName" placeholder="First Name"
+                        required>
                 </div>
 
-                <form action="<%=request.getContextPath()%>/register" method="post">
+                <div class="form-group">
+                    <label for="lastName">Last Name:</label>
+                    <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Last Name"
+                        required>
+                </div>
 
-                    <div class="form-group">
-                        <label for="uname">First Name:</label> <input type="text" class="form-control" id="uname" placeholder="First Name" name="firstName" required>
-                    </div>
+                <div class="form-group">
+                    <label for="username">User Name:</label>
+                    <input type="text" class="form-control" id="username" name="username" placeholder="User Name"
+                        required>
+                </div>
 
-                    <div class="form-group">
-                        <label for="uname">Last Name:</label> <input type="text" class="form-control" id="uname" placeholder="last Name" name="lastName" required>
-                    </div>
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" class="form-control" id="password" name="password" placeholder="Password"
+                        required>
+                </div>
 
-                    <div class="form-group">
-                        <label for="uname">User Name:</label> <input type="text" class="form-control" id="username" placeholder="User Name" name="username" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="uname">Password:</label> <input type="password" class="form-control" id="password" placeholder="Password" name="password" required>
-                    </div>
-
-                    <button type="submit" class="btn btn-primary">Submit</button>
-
-                </form>
-            </div>
+                <button type="submit" class="btn btn-primary btn-block">Submit</button>
+            </form>
         </div>
-        <jsp:include page="../common/footer.jsp"></jsp:include>
-    </body>
+    </div>
+    <jsp:include page="../common/footer.jsp" />
+</body>
 
-    </html>
+</html>
