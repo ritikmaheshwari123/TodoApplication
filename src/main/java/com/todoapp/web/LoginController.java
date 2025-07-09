@@ -4,7 +4,6 @@ import com.todoapp.dao.LoginDao;
 import com.todoapp.model.LoginBean;
 
 import java.io.IOException;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -41,8 +40,9 @@ public class LoginController extends HttpServlet {
 
         try {
             if (loginDao.validate(loginBean)) {
-                RequestDispatcher dispatcher = request.getRequestDispatcher("todo/todo-list.jsp");
-                dispatcher.forward(request, response);
+                HttpSession session = request.getSession();
+                session.setAttribute("username", username);
+                response.sendRedirect("list");
             } else {
                 HttpSession session = request.getSession();
                 // session.setAttribute("user", username);

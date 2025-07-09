@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
  pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ page isELIgnored="false" %>
 <html>
 <head>
 <title>User Management Application</title>
@@ -17,7 +19,7 @@
   <nav class="navbar navbar-expand-md navbar-dark"
    style="background-color: tomato">
    <div>
-    <a href="https://www.javaguides.net" class="navbar-brand"> Todo
+    <a href="https://github.com/ritikmaheshwari123/" class="navbar-brand"> Todo
      App</a>
    </div>
 
@@ -46,34 +48,43 @@
    </div>
    <br>
    <table class="table table-bordered">
-    <thead>
-     <tr>
-      <th>Title</th>
-      <th>Target Date</th>
-      <th>Todo Status</th>
-      <th>Actions</th>
-     </tr>
-    </thead>
-    <tbody>
-     <!--   for (Todo todo: todos) {  -->
-     <c:forEach var="todo" items="${listTodo}">
+     <thead>
+       <tr>
+         <th>Title</th>
+         <th>Target Date</th>
+         <th>Status</th>
+         <th>Actions</th>
+       </tr>
+     </thead>
+     <tbody>
 
-      <tr>
-       <td><c:out value="${todo.title}" /></td>
-       <td><c:out value="${todo.targetDate}" /></td>
-       <td><c:out value="${todo.status}" /></td>
+       <c:choose>
+         <c:when test="${not empty listTodo}">
+           <c:forEach var="todo" items="${listTodo}" varStatus="loop">
+             <!-- Actual Todo Row -->
+             <tr>
+               <td>${todo.title}</td>
+               <td>${todo.targetDate}</td>
+               <td>${todo.status ? 'Complete' : 'In Progress'}</td>
+               <td>
+                 <a href="edit?id=${todo.id}">Edit</a> &nbsp;
+                 <a href="delete?id=${todo.id}">Delete</a>
+               </td>
+             </tr>
+           </c:forEach>
+         </c:when>
 
-       <td><a href="edit?id=<c:out value='${todo.id}' />">Edit</a>
-        &nbsp;&nbsp;&nbsp;&nbsp; <a
-        href="delete?id=<c:out value='${todo.id}' />">Delete</a></td>
+         <c:otherwise>
+           <!-- 🔍 DEBUG: Empty list case -->
+           <tr>
+             <td colspan="4" class="text-center text-danger">
+               No todos found
+             </td>
+           </tr>
+         </c:otherwise>
+       </c:choose>
 
-       <!--  <td><button (click)="updateTodo(todo.id)" class="btn btn-success">Update</button>
-                 <button (click)="deleteTodo(todo.id)" class="btn btn-warning">Delete</button></td> -->
-      </tr>
-     </c:forEach>
-     <!-- } -->
-    </tbody>
-
+     </tbody>
    </table>
   </div>
  </div>

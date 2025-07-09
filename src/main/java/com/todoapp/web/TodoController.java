@@ -67,7 +67,9 @@ public class TodoController extends HttpServlet {
 
     private void listTodo(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException, ServletException {
-        List <Todo> listTodo = todoDAO.selectAllTodos();
+        String username = (String) request.getSession(false).getAttribute("username");
+        List <Todo> listTodo = todoDAO.selectAllTodos(username);
+        System.out.println("Size=" +listTodo.size());
         request.setAttribute("listTodo", listTodo);
         RequestDispatcher dispatcher = request.getRequestDispatcher("todo/todo-list.jsp");
         dispatcher.forward(request, response);
@@ -92,7 +94,7 @@ public class TodoController extends HttpServlet {
     private void insertTodo(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
 
         String title = request.getParameter("title");
-        String username = request.getParameter("username");
+        String username = (String) request.getSession(false).getAttribute("username");
         String description = request.getParameter("description");
 
         /*DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-mm-dd");
